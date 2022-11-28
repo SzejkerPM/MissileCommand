@@ -6,20 +6,19 @@ namespace MissileCommand.Objects
     internal class City
     {
 
-        private static int cityY = 636;
+        private static int cityY = 736;
 
         public static List<City> cities = new List<City> {
-                new City(new Vector2(50, cityY)),
-                new City(new Vector2(250, cityY)),
-                new City(new Vector2(450, cityY)),
-                new City(new Vector2(680, cityY)),
-                new City(new Vector2(880, cityY)),
-                new City(new Vector2(1080, cityY))
+                new City(new Vector2(175, cityY)),
+                new City(new Vector2(360, cityY)),
+                new City(new Vector2(545, cityY)),
+                new City(new Vector2(790, cityY)),
+                new City(new Vector2(975, cityY)),
+                new City(new Vector2(1160, cityY))
             };
 
         private bool isDestroyed = false;
         private Vector2 position;
-        private int hitbox = 100; // sprawdzić czy będzie okej
 
         public City(Vector2 position)
         {

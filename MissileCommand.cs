@@ -6,7 +6,7 @@ using MissileCommand.Objects;
 
 namespace MissileCommand
 {
-    enum Direction
+    enum Area
     {
         left,
         middle,
@@ -25,14 +25,15 @@ namespace MissileCommand
         private Texture2D backgroundSprite;
         //TODO: explosion animation
 
-        MissileController controller = new MissileController();
+        MissileController missileController = new MissileController();
+        MouseController mouseController = new MouseController();
 
 
         public MissileCommand()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            IsMouseVisible = true;
+            IsMouseVisible = false;
         }
 
         protected override void Initialize()
@@ -62,11 +63,13 @@ namespace MissileCommand
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            controller.Update(gameTime);
+            missileController.Update(gameTime);
             foreach (Missile m in Missile.missiles)
             {
                 m.Update(gameTime);
             }
+
+            mouseController.Update(gameTime);
 
 
             base.Update(gameTime);
@@ -82,20 +85,22 @@ namespace MissileCommand
 
             foreach (City c in City.cities)
             {
-                spriteBatch.Draw(citySprite, c.Position, Color.White);
+                spriteBatch.Draw(citySprite, new Vector2(c.Position.X - 100, c.Position.Y - 100), Color.White);
             }
 
             foreach (Turret t in Turret.turrets)
             {
-                spriteBatch.Draw(turretSprite, t.Position, Color.White);
+                spriteBatch.Draw(turretSprite, new Vector2(t.Position.X - 40, t.Position.Y - 40), Color.White);
             }
 
+            Rectangle sourceRectangle = new Rectangle(0, 0, missileSprite.Width, missileSprite.Height);
+            Vector2 origin = new Vector2(0, 0);
             foreach (Missile m in Missile.missiles)
             {
-                spriteBatch.Draw(missileSprite, m.Position, Color.White);
+                spriteBatch.Draw(missileSprite, new Vector2(m.Position.X - 20, m.Position.Y - 20), sourceRectangle, Color.White, m.Angle, origin, 1.0f, SpriteEffects.None, 1);
             }
 
-            // ZROBIĆ OFFSETY DO KAŻDEJ GRAFIKI
+            spriteBatch.Draw(crosshairSprite, new Vector2(mouseController.Position.X - 36, mouseController.Position.Y - 36), Color.White);
 
             spriteBatch.End();
 
