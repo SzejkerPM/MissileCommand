@@ -1,23 +1,32 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MissileCommand.Controllers;
+using MissileCommand.Objects;
 
 namespace MissileCommand
 {
+    enum Direction
+    {
+        left,
+        middle,
+        right
+    }
     public class MissileCommand : Game
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
         private Texture2D antiMissileSprite;
-        private Texture2D antiMissilePathSprite;
         private Texture2D missileSprite;
-        private Texture2D missilePathSprite;
         private Texture2D turretSprite;
         private Texture2D citySprite;
         private Texture2D crosshairSprite;
         private Texture2D backgroundSprite;
         //TODO: explosion animation
+
+        MissileController controller = new MissileController();
+
 
         public MissileCommand()
         {
@@ -40,9 +49,7 @@ namespace MissileCommand
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             antiMissileSprite = Content.Load<Texture2D>("anti_missile");
-            antiMissilePathSprite = Content.Load<Texture2D>("anti_missile_path");
             missileSprite = Content.Load<Texture2D>("missile");
-            missilePathSprite = Content.Load<Texture2D>("missile_path");
             turretSprite = Content.Load<Texture2D>("turret");
             citySprite = Content.Load<Texture2D>("city");
             crosshairSprite = Content.Load<Texture2D>("crosshair");
@@ -55,7 +62,12 @@ namespace MissileCommand
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            controller.Update(gameTime);
+            foreach (Missile m in Missile.missiles)
+            {
+                m.Update(gameTime);
+            }
+
 
             base.Update(gameTime);
         }
@@ -67,6 +79,23 @@ namespace MissileCommand
             spriteBatch.Begin();
 
             spriteBatch.Draw(backgroundSprite, new Vector2(0, 0), Color.White);
+
+            foreach (City c in City.cities)
+            {
+                spriteBatch.Draw(citySprite, c.Position, Color.White);
+            }
+
+            foreach (Turret t in Turret.turrets)
+            {
+                spriteBatch.Draw(turretSprite, t.Position, Color.White);
+            }
+
+            foreach (Missile m in Missile.missiles)
+            {
+                spriteBatch.Draw(missileSprite, m.Position, Color.White);
+            }
+
+            // ZROBIĆ OFFSETY DO KAŻDEJ GRAFIKI
 
             spriteBatch.End();
 
