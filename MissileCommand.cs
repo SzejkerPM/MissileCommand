@@ -110,7 +110,7 @@ namespace MissileCommand
 
             Missile.missiles.RemoveAll(m => m.IsDestroyed);
             City.cities.RemoveAll(c => c.IsDestroyed);
-            Turret.turrets.RemoveAll(t => t.IsDestroyed);
+            //Turret.turrets.RemoveAll(t => t.IsDestroyed);
             AntiMissile.antiMissiles.RemoveAll(a => a.IsDestroyed);
 
             base.Update(gameTime);

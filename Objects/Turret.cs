@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using System.Collections.Generic;
 
 namespace MissileCommand.Objects
 {
@@ -9,7 +8,7 @@ namespace MissileCommand.Objects
     {
         private static int turretY = 670;
 
-        public static List<Turret> turrets = new List<Turret> {
+        public static Turret[] turrets = new Turret[3] {
                 new Turret(new Vector2(20, turretY), Area.left),
                 new Turret(new Vector2(620, turretY),Area.middle),
                 new Turret(new Vector2(1220, turretY), Area.right)
@@ -36,7 +35,18 @@ namespace MissileCommand.Objects
 
             if (!isDestroyed && mouse.LeftButton == ButtonState.Pressed && isMouseReleased == true)
             {
-                AntiMissile.antiMissiles.Add(new AntiMissile(position, (mouse.Position.ToVector2()) - position));
+                if (mouse.Position.X < 426 && area == Area.left)
+                {
+                    AntiMissile.antiMissiles.Add(new AntiMissile(turrets[0].position, (mouse.Position.ToVector2()) - position));
+                }
+                else if (mouse.Position.X < 854 && area == Area.middle)
+                {
+                    AntiMissile.antiMissiles.Add(new AntiMissile(turrets[1].position, (mouse.Position.ToVector2()) - position));
+                }
+                else
+                {
+                    AntiMissile.antiMissiles.Add(new AntiMissile(turrets[2].position, (mouse.Position.ToVector2()) - position));
+                }
                 isMouseReleased = false;
             }
 
@@ -57,6 +67,6 @@ namespace MissileCommand.Objects
             set { isDestroyed = value; }
         }
 
-        public Area Area { get { return area; } }
+        // public Area Area { get { return area; } }
     }
 }

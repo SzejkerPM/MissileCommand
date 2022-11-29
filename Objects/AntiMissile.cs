@@ -8,7 +8,6 @@ namespace MissileCommand.Objects
         private int speed = 150;
         private Vector2 position;
         private Vector2 direction;
-        private float angle;
         private int radius = 10;
         private bool isDestroyed = false;
         public static List<AntiMissile> antiMissiles = new List<AntiMissile>();
@@ -28,10 +27,7 @@ namespace MissileCommand.Objects
         }
 
 
-
         public Vector2 Position { get { return position; } }
-
-        public float Angle { get { return angle; } }
 
         public int Radius { get { return radius; } }
 
