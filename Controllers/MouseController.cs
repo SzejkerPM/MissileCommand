@@ -11,7 +11,7 @@ namespace MissileCommand.Controllers
 
         public void Update(GameTime gameTime)
         {
-            mouse = Mouse.GetState();
+            mouse = Mouse.GetState(); // można te dwie linijki zapisać jako jedna, ale na razie zostawiam bo "mouse" może się przydać
 
             position = mouse.Position.ToVector2();
         }

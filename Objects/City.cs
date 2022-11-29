@@ -18,6 +18,7 @@ namespace MissileCommand.Objects
             };
 
         private bool isDestroyed = false;
+        private int radius = 100;
         private Vector2 position;
 
         public City(Vector2 position)
@@ -27,5 +28,13 @@ namespace MissileCommand.Objects
 
 
         public Vector2 Position { get { return position; } }
+
+        public int Radius { get { return radius; } }
+
+        public bool IsDestroyed
+        {
+            get { return isDestroyed; }
+            set { isDestroyed = value; }
+        }
     }
 }

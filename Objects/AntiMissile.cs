@@ -3,43 +3,31 @@ using System.Collections.Generic;
 
 namespace MissileCommand.Objects
 {
-    class Missile
+    internal class AntiMissile
     {
-
-        public static List<Missile> missiles = new List<Missile>();
-        private int speed = 80;
+        private int speed = 150;
         private Vector2 position;
+        private Vector2 direction;
         private float angle;
-        private int radius = 20;
+        private int radius = 10;
         private bool isDestroyed = false;
+        public static List<AntiMissile> antiMissiles = new List<AntiMissile>();
 
-        public Missile(Vector2 position, float angle)
+        public AntiMissile(Vector2 position, Vector2 direction)
         {
             this.position = position;
-            this.angle = angle;
+            this.direction = direction;
         }
 
         public void Update(GameTime gameTime)
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
-            Vector2 direction;
-
-            if (angle > 0)
-            {
-                direction = new Vector2(position.X--, 2000) - position;
-            }
-            else if (angle < 0)
-            {
-                direction = new Vector2(position.X++, 2000) - position;
-            }
-            else
-            {
-                direction = new Vector2(position.X, 2000) - position;
-            }
 
             direction.Normalize();
             position += direction * speed * deltaTime;
         }
+
+
 
         public Vector2 Position { get { return position; } }
 
