@@ -7,10 +7,10 @@ namespace MissileCommand.Objects
     {
 
         public static List<Missile> missiles = new();
-        private int speed = 80;
+        private int speed = 75;
         private Vector2 position;
         private float angle;
-        private int radius = 13;
+        private int radius = 10;
         private bool isDestroyed = false;
 
         public Missile(Vector2 position, float angle)

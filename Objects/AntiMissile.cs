@@ -8,7 +8,7 @@ namespace MissileCommand.Objects
         private int speed = 150;
         private Vector2 position;
         private Vector2 direction;
-        private int radius = 10;
+        private int radius = 13;
         private bool isDestroyed = false;
         public static List<AntiMissile> antiMissiles = new();
 

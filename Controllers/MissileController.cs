@@ -7,8 +7,8 @@ namespace MissileCommand.Controllers
     class MissileController
     {
 
-        private double timer = 5D;
-        private double maxTime = 5D;
+        private double timer = 3D;
+        private double maxTime = 3D;
         private Random random = new();
 
         public void Update(GameTime gameTime)

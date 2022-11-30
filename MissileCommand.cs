@@ -19,9 +19,11 @@ namespace MissileCommand
         private Texture2D crosshairSprite;
         private Texture2D backgroundSprite;
         private Texture2D explosionSprite;
+        private SpriteFont font;
 
         private MissileController missileController = new();
         private MouseController mouseController = new();
+        private TurretController turretController = new();
 
         public MissileCommand()
         {
@@ -50,6 +52,7 @@ namespace MissileCommand
             crosshairSprite = Content.Load<Texture2D>("crosshair");
             backgroundSprite = Content.Load<Texture2D>("background");
             explosionSprite = Content.Load<Texture2D>("explosion");
+            font = Content.Load<SpriteFont>("font");
         }
 
         protected override void Update(GameTime gameTime)
@@ -59,13 +62,11 @@ namespace MissileCommand
 
             mouseController.Update(gameTime);
             missileController.Update(gameTime);
-
+            turretController.Update(gameTime);
 
             foreach (AntiMissile a in AntiMissile.antiMissiles) { a.Update(gameTime); }
 
             foreach (Missile m in Missile.missiles) { m.Update(gameTime); }
-
-            foreach (Turret t in Turret.turrets) { t.Update(gameTime); }
 
             foreach (Missile m in Missile.missiles)
             {
@@ -132,7 +133,15 @@ namespace MissileCommand
 
             foreach (Turret t in Turret.turrets)
             {
-                spriteBatch.Draw(turretSprite, new Vector2(t.Position.X - t.Radius, t.Position.Y - t.Radius), Color.White);
+                if (t.HasAmmunition)
+                {
+                    spriteBatch.Draw(turretSprite, new Vector2(t.Position.X - t.Radius, t.Position.Y - t.Radius), Color.White);
+                }
+                else
+                {
+                    spriteBatch.Draw(turretSprite, new Vector2(t.Position.X - t.Radius, t.Position.Y - t.Radius), Color.Gray);
+
+                }
             }
 
             Rectangle sourceRectangle = new Rectangle(0, 0, missileSprite.Width, missileSprite.Height);
@@ -153,6 +162,13 @@ namespace MissileCommand
                 spriteBatch.Draw(explosionSprite, new Vector2(e.Position.X - e.Radius, e.Position.Y - e.Radius), Color.White);
             }
 
+            foreach (Turret t in Turret.turrets)
+            {
+                {
+                    spriteBatch.DrawString(font, t.Ammunition.ToString(), new Vector2(t.Position.X + 5, t.Position.Y - 8), Color.White);
+                }
+            }
+
             spriteBatch.Draw(crosshairSprite, new Vector2(mouseController.Position.X - 36, mouseController.Position.Y - 36), Color.White);
 
             spriteBatch.End();
@@ -160,16 +176,4 @@ namespace MissileCommand
             base.Draw(gameTime);
         }
     }
-}//TODO:
- //
- //
- //
- //
- //
- //poprawki kodu
- //wzorce projektowe
- //ograniczona amunicja
- //
- //wybuchy, które będą niszczyć swoim zasięgiem zamiast pociskami
- //
- //Dopasować lepiej hitboxy
+}
