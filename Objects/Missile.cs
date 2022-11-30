@@ -6,7 +6,7 @@ namespace MissileCommand.Objects
     class Missile
     {
 
-        public static List<Missile> missiles = new List<Missile>();
+        public static List<Missile> missiles = new();
         private int speed = 80;
         private Vector2 position;
         private float angle;

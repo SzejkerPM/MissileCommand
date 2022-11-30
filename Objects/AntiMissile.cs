@@ -10,7 +10,7 @@ namespace MissileCommand.Objects
         private Vector2 direction;
         private int radius = 10;
         private bool isDestroyed = false;
-        public static List<AntiMissile> antiMissiles = new List<AntiMissile>();
+        public static List<AntiMissile> antiMissiles = new();
 
         public AntiMissile(Vector2 position, Vector2 direction)
         {

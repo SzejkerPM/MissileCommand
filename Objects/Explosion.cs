@@ -7,9 +7,9 @@ namespace MissileCommand.Objects
     {
         public static int radius = 26;
         private Vector2 position = new Vector2(0, 0);
-        public static bool isVisible = false;
-        private static double timer = 3D;
-        private static double maxTime = 3D;
+        public static bool isVisible;
+        private static double timer = 2D;
+        private static double maxTime = 2D;
         public static List<Explosion> explosions = new();
 
 
@@ -22,9 +22,9 @@ namespace MissileCommand.Objects
         {
             isVisible = true;
             timer -= gameTime.ElapsedGameTime.TotalSeconds;
+
             if (timer <= 0)
             {
-
                 isVisible = false;
                 timer = maxTime;
             }

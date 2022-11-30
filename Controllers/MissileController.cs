@@ -9,7 +9,7 @@ namespace MissileCommand.Controllers
 
         private double timer = 5D;
         private double maxTime = 5D;
-        private Random random = new Random();
+        private Random random = new();
 
         public void Update(GameTime gameTime)
         {
@@ -21,13 +21,13 @@ namespace MissileCommand.Controllers
             {
                 switch (side)
                 {
-                    case 0: // leci w lewo
+                    case 0:
                         Missile.missiles.Add(new Missile(new Vector2(random.Next(650, 1280), -100), 0.6f));
                         break;
                     case 1:
                         Missile.missiles.Add(new Missile(new Vector2(random.Next(0, 1280), -100), 0));
                         break;
-                    case 2://leci w prawo
+                    case 2:
                         Missile.missiles.Add(new Missile(new Vector2(random.Next(0, 650), -100), -0.6f));
                         break;
                 }
@@ -35,7 +35,7 @@ namespace MissileCommand.Controllers
                 timer = maxTime;
                 if (maxTime > 2)
                 {
-                    maxTime -= 0.05;
+                    maxTime -= 0.10;
                 }
             }
         }

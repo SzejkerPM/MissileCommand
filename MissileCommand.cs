@@ -6,13 +6,7 @@ using MissileCommand.Objects;
 
 namespace MissileCommand
 {
-    enum Area
-    {
-        left,
-        middle,
-        right,
-        free
-    }
+
     public class MissileCommand : Game
     {
         private GraphicsDeviceManager graphics;
@@ -26,11 +20,8 @@ namespace MissileCommand
         private Texture2D backgroundSprite;
         private Texture2D explosionSprite;
 
-        private MissileController missileController = new MissileController();
-        private MouseController mouseController = new MouseController();
-
-
-
+        private MissileController missileController = new();
+        private MouseController mouseController = new();
 
         public MissileCommand()
         {
@@ -59,7 +50,6 @@ namespace MissileCommand
             crosshairSprite = Content.Load<Texture2D>("crosshair");
             backgroundSprite = Content.Load<Texture2D>("background");
             explosionSprite = Content.Load<Texture2D>("explosion");
-
         }
 
         protected override void Update(GameTime gameTime)
@@ -68,9 +58,7 @@ namespace MissileCommand
                 Exit();
 
             mouseController.Update(gameTime);
-
             missileController.Update(gameTime);
-
 
 
             foreach (AntiMissile a in AntiMissile.antiMissiles) { a.Update(gameTime); }
@@ -89,7 +77,6 @@ namespace MissileCommand
                         Explosion.explosions.Add(new Explosion(m.Position));
                         m.IsDestroyed = true;
                         a.IsDestroyed = true;
-
                     }
                 }
 
@@ -101,10 +88,9 @@ namespace MissileCommand
                         Explosion.explosions.Add(new Explosion(m.Position));
                         m.IsDestroyed = true;
                         c.IsDestroyed = true;
-
                     }
-
                 }
+
                 foreach (Turret t in Turret.turrets)
                 {
                     float turretHitbox = m.Radius + t.Radius;
@@ -117,11 +103,11 @@ namespace MissileCommand
                     }
                 }
 
+            }
 
-                foreach (Explosion e in Explosion.explosions)
-                {
-                    e.Update(gameTime);
-                }
+            foreach (Explosion e in Explosion.explosions)
+            {
+                e.Update(gameTime);
             }
 
             Missile.missiles.RemoveAll(m => m.IsDestroyed);
@@ -129,6 +115,7 @@ namespace MissileCommand
             Turret.turrets.RemoveAll(t => t.IsDestroyed);
             AntiMissile.antiMissiles.RemoveAll(a => a.IsDestroyed);
             Explosion.explosions.RemoveAll(e => !e.IsVisible);
+
             base.Update(gameTime);
         }
 
@@ -140,48 +127,30 @@ namespace MissileCommand
 
             foreach (City c in City.cities)
             {
-                if (!c.IsDestroyed)
-                {
-                    spriteBatch.Draw(citySprite, new Vector2(c.Position.X - c.Radius, c.Position.Y - c.Radius), Color.White);
-                }
-
-
+                spriteBatch.Draw(citySprite, new Vector2(c.Position.X - c.Radius, c.Position.Y - c.Radius), Color.White);
             }
 
             foreach (Turret t in Turret.turrets)
             {
-                if (!t.IsDestroyed)
-                {
-                    spriteBatch.Draw(turretSprite, new Vector2(t.Position.X - t.Radius, t.Position.Y - t.Radius), Color.White);
-                }
+                spriteBatch.Draw(turretSprite, new Vector2(t.Position.X - t.Radius, t.Position.Y - t.Radius), Color.White);
             }
 
             Rectangle sourceRectangle = new Rectangle(0, 0, missileSprite.Width, missileSprite.Height);
             Vector2 origin = new Vector2(0, 0);
+
             foreach (Missile m in Missile.missiles)
             {
-                if (!m.IsDestroyed)
-                {
-                    spriteBatch.Draw(missileSprite, new Vector2(m.Position.X - m.Radius, m.Position.Y - m.Radius), sourceRectangle, Color.White, m.Angle, origin, 1.0f, SpriteEffects.None, 1);
-                }
-
+                spriteBatch.Draw(missileSprite, new Vector2(m.Position.X - m.Radius, m.Position.Y - m.Radius), sourceRectangle, Color.White, m.Angle, origin, 1.0f, SpriteEffects.None, 1);
             }
 
             foreach (AntiMissile a in AntiMissile.antiMissiles)
             {
-                if (!a.IsDestroyed)
-                {
-                    spriteBatch.Draw(antiMissileSprite, new Vector2(a.Position.X - a.Radius, a.Position.Y - a.Radius), Color.White);
-                }
-
+                spriteBatch.Draw(antiMissileSprite, new Vector2(a.Position.X - a.Radius, a.Position.Y - a.Radius), Color.White);
             }
-
 
             foreach (Explosion e in Explosion.explosions)
             {
-
                 spriteBatch.Draw(explosionSprite, new Vector2(e.Position.X - e.Radius, e.Position.Y - e.Radius), Color.White);
-
             }
 
             spriteBatch.Draw(crosshairSprite, new Vector2(mouseController.Position.X - 36, mouseController.Position.Y - 36), Color.White);
