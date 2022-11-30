@@ -128,8 +128,7 @@ namespace MissileCommand
             City.cities.RemoveAll(c => c.IsDestroyed);
             Turret.turrets.RemoveAll(t => t.IsDestroyed);
             AntiMissile.antiMissiles.RemoveAll(a => a.IsDestroyed);
-            Explosion.explosions.RemoveAll(e => !e.IsVisible); // wyłączając to usuniecie - obrazek wybuchu będzie zmieniać pozycję
-
+            Explosion.explosions.RemoveAll(e => !e.IsVisible);
             base.Update(gameTime);
         }
 
