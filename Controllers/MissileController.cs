@@ -7,8 +7,8 @@ namespace MissileCommand.Controllers
     class MissileController
     {
 
-        private double timer = 3D;
-        private double maxTime = 3D;
+        private double timer = 5D;
+        private double maxTime = 5D;
         private Random random = new();
 
         public void Update(GameTime gameTime)
@@ -35,7 +35,7 @@ namespace MissileCommand.Controllers
                 timer = maxTime;
                 if (maxTime > 2)
                 {
-                    maxTime -= 0.10;
+                    maxTime -= 0.05;
                 }
             }
         }
