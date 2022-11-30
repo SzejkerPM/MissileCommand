@@ -36,5 +36,6 @@ namespace MissileCommand.Objects
             get { return isDestroyed; }
             set { isDestroyed = value; }
         }
+
     }
 }

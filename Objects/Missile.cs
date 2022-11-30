@@ -10,7 +10,7 @@ namespace MissileCommand.Objects
         private int speed = 80;
         private Vector2 position;
         private float angle;
-        private int radius = 20;
+        private int radius = 13;
         private bool isDestroyed = false;
 
         public Missile(Vector2 position, float angle)

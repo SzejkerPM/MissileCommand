@@ -10,7 +10,8 @@ namespace MissileCommand
     {
         left,
         middle,
-        right
+        right,
+        free
     }
     public class MissileCommand : Game
     {
@@ -25,8 +26,9 @@ namespace MissileCommand
         private Texture2D backgroundSprite;
         private Texture2D explosionSprite;
 
-        MissileController missileController = new MissileController();
-        MouseController mouseController = new MouseController();
+        private MissileController missileController = new MissileController();
+        private MouseController mouseController = new MouseController();
+
 
 
 
@@ -69,6 +71,8 @@ namespace MissileCommand
 
             missileController.Update(gameTime);
 
+
+
             foreach (AntiMissile a in AntiMissile.antiMissiles) { a.Update(gameTime); }
 
             foreach (Missile m in Missile.missiles) { m.Update(gameTime); }
@@ -79,39 +83,52 @@ namespace MissileCommand
             {
                 foreach (AntiMissile a in AntiMissile.antiMissiles)
                 {
-                    int antiMissileHitbox = m.Radius + a.Radius; // do poprawy potem hitboxy
+                    float antiMissileHitbox = m.Radius + a.Radius;
                     if (Vector2.Distance(a.Position, m.Position) < antiMissileHitbox)
                     {
+                        Explosion.explosions.Add(new Explosion(m.Position));
                         m.IsDestroyed = true;
                         a.IsDestroyed = true;
+
                     }
                 }
 
                 foreach (City c in City.cities)
                 {
-                    int cityHitbox = m.Radius + c.Radius;
+                    float cityHitbox = m.Radius + c.Radius;
                     if (Vector2.Distance(m.Position, c.Position) < cityHitbox)
                     {
+                        Explosion.explosions.Add(new Explosion(m.Position));
                         m.IsDestroyed = true;
                         c.IsDestroyed = true;
+
                     }
 
                 }
                 foreach (Turret t in Turret.turrets)
                 {
-                    int turretHitbox = m.Radius + t.Radius;
+                    float turretHitbox = m.Radius + t.Radius;
                     if (Vector2.Distance(m.Position, t.Position) < turretHitbox)
                     {
+                        Explosion.explosions.Add(new Explosion(m.Position));
                         m.IsDestroyed = true;
                         t.IsDestroyed = true;
+
                     }
+                }
+
+
+                foreach (Explosion e in Explosion.explosions)
+                {
+                    e.Update(gameTime);
                 }
             }
 
             Missile.missiles.RemoveAll(m => m.IsDestroyed);
             City.cities.RemoveAll(c => c.IsDestroyed);
-            //Turret.turrets.RemoveAll(t => t.IsDestroyed);
+            Turret.turrets.RemoveAll(t => t.IsDestroyed);
             AntiMissile.antiMissiles.RemoveAll(a => a.IsDestroyed);
+            Explosion.explosions.RemoveAll(e => !e.IsVisible); // wyłączając to usuniecie - obrazek wybuchu będzie zmieniać pozycję
 
             base.Update(gameTime);
         }
@@ -128,6 +145,7 @@ namespace MissileCommand
                 {
                     spriteBatch.Draw(citySprite, new Vector2(c.Position.X - c.Radius, c.Position.Y - c.Radius), Color.White);
                 }
+
 
             }
 
@@ -147,6 +165,7 @@ namespace MissileCommand
                 {
                     spriteBatch.Draw(missileSprite, new Vector2(m.Position.X - m.Radius, m.Position.Y - m.Radius), sourceRectangle, Color.White, m.Angle, origin, 1.0f, SpriteEffects.None, 1);
                 }
+
             }
 
             foreach (AntiMissile a in AntiMissile.antiMissiles)
@@ -155,6 +174,15 @@ namespace MissileCommand
                 {
                     spriteBatch.Draw(antiMissileSprite, new Vector2(a.Position.X - a.Radius, a.Position.Y - a.Radius), Color.White);
                 }
+
+            }
+
+
+            foreach (Explosion e in Explosion.explosions)
+            {
+
+                spriteBatch.Draw(explosionSprite, new Vector2(e.Position.X - e.Radius, e.Position.Y - e.Radius), Color.White);
+
             }
 
             spriteBatch.Draw(crosshairSprite, new Vector2(mouseController.Position.X - 36, mouseController.Position.Y - 36), Color.White);
@@ -175,5 +203,5 @@ namespace MissileCommand
  //ograniczona amunicja
  //
  //wybuchy, które będą niszczyć swoim zasięgiem zamiast pociskami
- //Strzelanie z różnych wieżyczek w zależności od pozycji myszki
+ //
  //Dopasować lepiej hitboxy

@@ -28,7 +28,7 @@ namespace MissileCommand.Controllers
                         Missile.missiles.Add(new Missile(new Vector2(random.Next(0, 1280), -100), 0));
                         break;
                     case 2://leci w prawo
-                        Missile.missiles.Add(new Missile(new Vector2(650, -100), -0.6f));
+                        Missile.missiles.Add(new Missile(new Vector2(random.Next(0, 650), -100), -0.6f));
                         break;
                 }
 

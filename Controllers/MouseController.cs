@@ -8,6 +8,7 @@ namespace MissileCommand.Controllers
         private MouseState mouse;
         private bool isReleased;
         private Vector2 position;
+        public static Area mouseArea;
 
         public void Update(GameTime gameTime)
         {

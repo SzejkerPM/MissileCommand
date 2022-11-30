@@ -18,7 +18,7 @@ namespace MissileCommand.Objects
             };
 
         private bool isDestroyed = false;
-        private int radius = 100;
+        private int radius = 84;
         private Vector2 position;
 
         public City(Vector2 position)
