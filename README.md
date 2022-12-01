@@ -1,1 +1,2 @@
-Projekt realizowany na rzecz rekrutacji
+Projekt "Missile Command" realizowany na rzecz rekrutacji.
+Maciej Wilga
