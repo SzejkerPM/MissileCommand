@@ -5,7 +5,6 @@ namespace MissileCommand.Objects
 {
     internal class City
     {
-
         private static int cityY = 726;
         private bool isDestroyed = false;
         private int radius = 84;
@@ -20,6 +19,7 @@ namespace MissileCommand.Objects
                 new City(new Vector2(965, cityY)),
                 new City(new Vector2(1150, cityY))
             };
+
 
         public City(Vector2 position)
         {

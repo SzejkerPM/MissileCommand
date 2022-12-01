@@ -6,7 +6,13 @@ namespace MissileCommand.Objects
 
     internal class Turret
     {
+
         private static int turretY = 676;
+        private Vector2 position;
+        private int radius = 50;
+        private int ammunition = 10;
+        private bool isDestroyed = false;
+        private bool hasAmmunition = true;
 
         public static List<Turret> turrets = new()
         {
@@ -14,12 +20,6 @@ namespace MissileCommand.Objects
                 new Turret(new Vector2(630, turretY)),
                 new Turret(new Vector2(1230, turretY))
             };
-
-        private bool isDestroyed = false;
-        private int radius = 50;
-        private Vector2 position;
-        private int ammunition = 10;
-        private bool hasAmmunition = true;
 
         public Turret(Vector2 position)
         {

@@ -5,12 +5,15 @@ namespace MissileCommand.Objects
 {
     internal class AntiMissile
     {
+
         private int speed = 150;
         private Vector2 position;
         private Vector2 direction;
         private int radius = 13;
         private bool isDestroyed = false;
+
         public static List<AntiMissile> antiMissiles = new();
+
 
         public AntiMissile(Vector2 position, Vector2 direction)
         {

@@ -8,6 +8,7 @@ namespace MissileCommand.Controllers
     {
         private bool isMouseReleased = false;
         MouseState mouse;
+
         public void Update(GameTime gameTime)
         {
             mouse = Mouse.GetState();

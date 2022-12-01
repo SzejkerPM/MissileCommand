@@ -5,13 +5,14 @@ namespace MissileCommand.Objects
 {
     internal class Explosion
     {
+
         public static int radius = 26;
-        private Vector2 position = new Vector2(0, 0);
         public static bool isVisible;
         private static double timer = 2D;
         private static double maxTime = 2D;
-        public static List<Explosion> explosions = new();
+        private Vector2 position = new Vector2(0, 0);
 
+        public static List<Explosion> explosions = new();
 
         public Explosion(Vector2 position)
         {
@@ -29,7 +30,6 @@ namespace MissileCommand.Objects
                 timer = maxTime;
             }
         }
-
 
 
         public int Radius { get { return radius; } }
